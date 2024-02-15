@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BurgerController!{% endblock %}
+
+{% form_theme formComment "bootstrap_5_layout.html.twig" %}
+{% block body %}
+<h3>Un burger</h3>
+
+
+        <div class="border border-dark">
+            <h3>{{ burger.name }}</h3>
+            <p><strong>Price : {{ burger.price }}€</strong></p>
+
+            <a href="{{ path('burgers') }}" class="btn btn-secondary">retour</a>
+        </div>
+    <div>
+        {% for comment in burger.comments %}
+            <hr>
+        <p>{{ comment.content }}</p>
+            <hr>
+        {% endfor %}
+    </div>
+    {{ form_start(formComment, {attr: {action:path("new_comment", {id:burger.id})}}) }}
+{{ form_widget(formComment.content) }}
+    <button type="submit" class="btn btn-success">comment</button>
+{{ form_end(formComment) }}
+{% endblock %}
